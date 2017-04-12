@@ -111,10 +111,16 @@ namespace ticketarena.app
             {
                 //Is a coin
                 var index = Convert.ToInt32(key);
-                var coinType = _vendService.ListCoinsAccepted().ToList()[index-1];
+                var coins = _vendService.ListCoinsAccepted().ToList();
+                if (index <= coins.Count() && index > 0)
+                {
+                    var coinType = coins[index-1];
 
-                var coin = _coinService.GetCoinByType(coinType);
-                _vendService.AddCoin(coin);
+                    var coin = _coinService.GetCoinByType(coinType);
+                    _vendService.AddCoin(coin);
+                } else {
+                    Console.WriteLine(">> Coin not recognised.");
+                }
                 
             }
 
